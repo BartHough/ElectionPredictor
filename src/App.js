@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 
 import ElectionMap from "./components/ElectionMap";
+import Description from "./components/Description";
 
 class App extends Component {
   state = {
@@ -63,10 +64,11 @@ class App extends Component {
     return (
       <div
         style={{
-          height: "100vh",
-          width: "100vw"
+          height: "100%",
+          width: "100%"
         }}
       >
+        <Description />
         <ElectionMap data={this.state.data} />
       </div>
     );

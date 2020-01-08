@@ -61,8 +61,8 @@ class ElectionMap extends Component {
             data: dataset,
             setProjection: function (element) {
                 var projection = d3.geo.mercator()
-                    .center([-106.3468, 68.1304]) // always in [East Latitude, North Longitude]
-                    .scale(200)
+                    .center([-95.7129, 34]) // always in [East Latitude, North Longitude]
+                    .scale(250)
                     .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
 
                 var path = d3.geo.path().projection(projection);
@@ -73,8 +73,8 @@ class ElectionMap extends Component {
     render() {
         return (
             <div id="cloropleth_map" style={{
-                height: "100%",
-                width: "100%",
+                height: "100vh",
+                width: "100vw",
             }}></div>
         );
     }
