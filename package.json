@@ -14,6 +14,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "aws s3 cp --recursive ./build s3://election-predictor",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
