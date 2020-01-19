@@ -4,46 +4,20 @@ import d3 from "d3";
 import CanadaJson from "./usa.topo.json";
 
 class ElectionMap extends Component {
-  constructor(props) {
-    super(props);
-  }
+
   componentDidMount() {
-    // Datamaps expect data in format:
-    // { "USA": { "fillColor": "#42a844", numberOfWhatever: 75},
-    //   "FRA": { "fillColor": "#8dc386", numberOfWhatever: 43 } }
     let dataset = {};
 
-    // We need to colorize every country based on "numberOfWhatever"
-    // colors should be uniq for every value.
-    // For this purpose we create palette(using min/max this.props.data-value)
-    let onlyValues = this.props.data.map(function(obj) {
-      return obj[1];
-    });
-    let minValue = Math.min.apply(null, onlyValues),
-      maxValue = Math.max.apply(null, onlyValues);
-
-    // create color palette function
-    // color can be whatever you wish
-    let paletteScale = d3.scale
-      .linear()
-      .domain([minValue, maxValue])
-      .range(["#EC3323","#001AF5"]); // blue color
-
-    // fill dataset in appropriate format
     this.props.data.forEach(function(item) {
-      //
-      // item example value ["USA", 70]
-      let winner = '';
-      if(item[2]>0) {
-          winner = 'Democrats'
+      let color = ''
+      if (item[1] === 'republican') {
+        color = "#EC3323"
       }
       else {
-          winner = 'Republicans'
+        color = "#001AF5"
       }
-      let iso = item[0],
-        value = item[1],
-        win = Math.abs(Math.round(item[2]));
-      dataset[iso] = { numberOfThings: win, fillColor: paletteScale(value), party: winner };
+      let iso = item[0]
+      dataset[iso] = { fillColor: color, party: item[2] };
     });
 
     let map = new Datamap({
@@ -66,9 +40,6 @@ class ElectionMap extends Component {
             '<div class="hoverinfo">',
             "<strong>",
             geo.properties.name,
-            "</strong>",
-            "<br>Winning Vote Margin: <strong>",
-            data.numberOfThings,
             "</strong>",
             "</strong>",
             "<br>Winning Party: <strong>",

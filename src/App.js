@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./App.css";
-
 import ElectionMap from "./components/ElectionMap";
 import Description from "./components/Description";
 import FadeLoader from "react-spinners/FadeLoader";
@@ -16,8 +15,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dem: '',
-      rep: '',
+      dem: "",
+      rep: "",
       data: []
     };
   }
@@ -30,19 +29,16 @@ class App extends Component {
         this.parseData(apiData);
       });
   }
+  
   parseData(apiData) {
     const rep = apiData.pop();
     const dem = apiData.pop();
     let data = [];
+    console.log(apiData)
     apiData.forEach(usState => {
-      if (usState[1] < 0) {
-        data.push([usState[0], -1, usState[1]]);
-      } else if (usState[1] > 200000) {
-        data.push([usState[0], 1, usState[1]]);
-      } else {
-        data.push([usState[0], 0, usState[1]]);
-      }
+        data.push([usState[0],usState[1], usState[1]]);
     });
+    console.log(data)
     this.setState({
       ...this.state,
       rep,
