@@ -59,6 +59,15 @@ class App extends Component {
     }
   }
   componentDidMount() {
+    const height = window.innerHeight;
+    const width = window.innerWidth;
+    console.log(height, width);
+    if ((height + width) < 1200) {
+      this.setState({
+        ...this.state,
+        scale: 400
+      })
+    }
     this.getData();
   }
   render() {
