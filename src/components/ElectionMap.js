@@ -24,7 +24,6 @@ class ElectionMap extends Component {
       element: document.getElementById("cloropleth_map"),
       scope: "usa",
       responsive: true,
-      height: 40,
       geographyConfig: {
         popupOnHover: true,
         highlightOnHover: true,
@@ -74,8 +73,6 @@ class ElectionMap extends Component {
           margin: 0,
           alignContent: "center",
           position: "relative",
-          // height: 100,
-          // width: 100
         }}
       ></div>
     );
