@@ -19,7 +19,7 @@ class ElectionMap extends Component {
       let iso = item[0]
       dataset[iso] = { fillColor: color, party: item[2] };
     });
-
+    const scale = this.props.scale;
     let map = new Datamap({
       element: document.getElementById("cloropleth_map"),
       scope: "usa",
@@ -59,8 +59,7 @@ class ElectionMap extends Component {
       setProjection: function(element) {
         var projection = d3.geo
           .albersUsa()
-          .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
-
+          .translate([element.offsetWidth / 2, element.offsetHeight / 2]).scale(scale);
         var path = d3.geo.path().projection(projection);
         return { path: path, projection: projection };
       }
@@ -71,10 +70,9 @@ class ElectionMap extends Component {
       <div
         id="cloropleth_map"
         style={{
+          margin: 0,
           alignContent: "center",
           position: "relative",
-          height: "100",
-          width: "100"
         }}
       ></div>
     );
