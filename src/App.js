@@ -18,7 +18,7 @@ class App extends Component {
       dem: "",
       rep: "",
       data: [],
-      scale:1000
+      scale: 1000
     };
   }
   getData() {
@@ -30,22 +30,33 @@ class App extends Component {
         this.parseData(apiData);
       });
   }
-  
+
   parseData(apiData) {
     const rep = apiData.pop();
     const dem = apiData.pop();
     let data = [];
-    console.log(apiData)
+    console.log(apiData);
     apiData.forEach(usState => {
-        data.push([usState[0],usState[1], usState[1]]);
+      data.push([usState[0], usState[1], usState[1]]);
     });
-    console.log(data)
+    console.log(data);
     this.setState({
       ...this.state,
       rep,
       dem,
       data
     });
+  }
+  componentWillMount() {
+    const height = window.innerHeight;
+    const width = window.innerWidth;
+    console.log(height, width);
+    if (height + width < 1400) {
+      this.setState({
+        ...this.state,
+        scale: 400
+      });
+    }
   }
   componentDidMount() {
     const height = window.innerHeight;
@@ -62,13 +73,15 @@ class App extends Component {
   render() {
     return (
       <div
-        // style={{
-        //   height: "100vh",
-        //   width: "100vw"
-        // }}
+      // style={{
+      //   height: "100vh",
+      //   width: "100vw"
+      // }}
       >
         <Description dem={this.state.dem[1]} rep={this.state.rep[1]} />
-        {this.state.data.length > 1 && <ElectionMap data={this.state.data} scale={this.state.scale}/>}
+        {this.state.data.length > 1 && (
+          <ElectionMap data={this.state.data} scale={this.state.scale} />
+        )}
         <div style={style}>
           <FadeLoader
             size={500}
