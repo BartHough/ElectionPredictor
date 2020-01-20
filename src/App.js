@@ -17,7 +17,8 @@ class App extends Component {
     this.state = {
       dem: "",
       rep: "",
-      data: []
+      data: [],
+      scale:1000
     };
   }
   getData() {
@@ -47,18 +48,27 @@ class App extends Component {
     });
   }
   componentDidMount() {
+    const height = window.innerHeight;
+    const width = window.innerWidth;
+    console.log(height, width);
+    if ((height + width) < 1200) {
+      this.setState({
+        ...this.state,
+        scale: 400
+      })
+    }
     this.getData();
   }
   render() {
     return (
       <div
-        style={{
-          height: "100%",
-          width: "100%"
-        }}
+        // style={{
+        //   height: "100vh",
+        //   width: "100vw"
+        // }}
       >
         <Description dem={this.state.dem[1]} rep={this.state.rep[1]} />
-        {this.state.data.length > 1 && <ElectionMap data={this.state.data} />}
+        {this.state.data.length > 1 && <ElectionMap data={this.state.data} scale={this.state.scale}/>}
         <div style={style}>
           <FadeLoader
             size={500}
